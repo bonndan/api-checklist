@@ -1,9 +1,9 @@
 # api-checklist
-Checklist for HTTP REST API design. Based on https://mathieu.fenniak.net/the-api-checklist/ by Maathieu Fenniak.
+Checklist for HTTP REST API design. Based on [The Api Checklist Blog Post](https://mathieu.fenniak.net/the-api-checklist) by Mathieu Fenniak.
 
 ## HTTP
 
-The HTTP 1.1 specification, RFC2616, is a hefty document at 54,121 words. Here are some select items from the spec that might affect your API design:
+The HTTP 1.1 specification, [RFC2616](http://tools.ietf.org/html/rfc2616), is a hefty document at 54,121 words. Here are some select items from the spec that might affect your API design:
 
 ### Idempotent methods
 GET, HEAD, PUT, DELETE, OPTIONS and TRACE are all intended to be idempotent operations; that is, “the side-effects of N > 0 identical requests is the same as for a single request.” (RFC2616 §9.1.2)
@@ -12,9 +12,9 @@ GET, HEAD, PUT, DELETE, OPTIONS and TRACE are all intended to be idempotent oper
 
 Most APIs will need a way to identify and authenticate the user accessing the API. HTTP provides the Authorization header (RFC2616 §14.8) for this purpose. RFC2617 specifies specific authentication schemes, including the most common, HTTP Basic authentication.
 
-Many popular APIs use HTTP Basic Authentication with an API Key as either the username or the password. This is a simple and effective authentication mechanism.
-
-To implement HTTP Authentication accurately, you should provide a 401 status code with a WWW-Authenticate header if a request is not permitted due to a lack of authentication. Many clients will require this response before sending an Authorization header on a subsequent request.
+> Many popular APIs use HTTP Basic Authentication with an API Key as either the username or the password. This is a simple and effective authentication mechanism.
+> 
+> To implement HTTP Authentication accurately, you should provide a 401 status code with a WWW-Authenticate header if a request is not permitted due to a lack of authentication. Many clients will require this response before sending an Authorization header on a subsequent request.
 
 ### 201 Created
 Use the “201 Created” response code to indicate that the request was processed successfully and resulted in the creation of a new resource. 201 responses can include the new resource URI in the Location header. (RFC2616 §10.2.2)
@@ -79,10 +79,12 @@ If you want to support multiple representations of your resources, you can use c
 URI Templates are a well-defined mechanism for providing URL composition capabilities to your clients, or for documenting your URL access patterns to your end-user.
 
 ### Design for Intent
-Don’t just expose your internal business objects through your API. Design your API to have semantic meaning and to match the use-cases that your users will have. Darrel Miller wrote a great post on API Craft describing this better than I could. (Edit: I tried my best in an article entitled Stop Designing Fragile Web APIs.)
+Don’t just expose your internal business objects through your API. Design your API to have semantic meaning and to match the use-cases that your users will have. 
+See [Stop Designing Fragile Web APIs](https://mathieu.fenniak.net/stop-designing-fragile-web-apis/) and [API Craft](https://groups.google.com/d/msg/api-craft/1kA2M3ro50M/1q_rSvREN1UJ)
 
 ### Versioning
-Theoretically, if you designed a really great API up front, you might never need to create incompatibilities in your API. For the pragmatists in us, put versioning in your API URLs (eg. a /v1/ path), so that you have a safety net in case the API doesn’t work out like you wanted. (Edit: An expanded justification is my follow-up article: Ain’t Nobody Got Time For That: API Versioning)
+Theoretically, if you designed a really great API up front, you might never need to create incompatibilities in your API. For the pragmatists in us, put versioning in your API URLs (eg. a /v1/ path), so that you have a safety net in case the API doesn’t work out like you wanted. 
+See [Ain’t Nobody Got Time For That](https://mathieu.fenniak.net/aint-nobody-got-time-for-that-api-versioning/)
 
 ### Authorization
 Remember when designing your API that not all users will have access to all objects in the system. It’s great if you use or build an API framework with some form of declarative security so that it’s easy to assign and modify authorization rights on read and write access to resources.
@@ -102,7 +104,7 @@ Be sure you design how you want your API to perform error logging, rather than j
 ## Content
 
 ### Content Types
-Entire books could be written about content types; all I’m going to point out is that they’re important. Personally, I like reusing content types that other people have developed, like Atom, Collection+JSON, JSON HAL, or XHTML. Defining your own content type is more work than you expect.
+Entire books could be written about content types; all I’m going to point out is that they’re important. Personally, I like reusing content types that other people have developed, like Atom, [Collection+JSON](http://amundsen.com/media-types/collection/), [JSON HAL](http://tools.ietf.org/html/draft-kelly-json-hal-05), or XHTML. Defining your own content type is more work than you expect.
 
 ### HATEOAS
 Hypermedia as the Engine of Application State is a REST constraint that, described simply, means that your content should tell the client what it can do next by via links and forms. If you build your API with this constraint it mind, it will be much more resilient to change… if your clients obey your design approach too.
@@ -116,7 +118,8 @@ When you provide date/time values in your API, use a format that includes the ti
 Consider whether you should offer your API under HTTP and HTTPS, or exclusively HTTPS. Exclusively HTTPS is an option growing in popularity.
 
 ### Cross-site Request Forgery (CSRF)
-If your API accepts the same authentication configuration that your interactive users use, then you might be vulnerable to a CSRF attack. For example, if your interactive users login and get a “SESSIONID” cookie, and that cookie can also be used to invoke API requests, then a carefully composed HTML form could make unexpected API requests on behalf of your users. (Edit: Read more about protecting APIs from CSRF attacks)
+If your API accepts the same authentication configuration that your interactive users use, then you might be vulnerable to a CSRF attack. For example, if your interactive users login and get a “SESSIONID” cookie, and that cookie can also be used to invoke API requests, then a carefully composed HTML form could make unexpected API requests on behalf of your users. 
+See [Protecting APIs from CSRF attacks](https://mathieu.fenniak.net/is-your-web-api-susceptible-to-a-csrf-exploit/)
 
 ### Throttling
 Make sure one API user can’t bring down your system by writing a remarkably stupid API client. It happens, both accidentally and maliciously. If an API user exceeds the generous API request limits you should provide for them, give them a 503 response with a Retry-After header.
@@ -140,7 +143,8 @@ I know at least one API client that defaults to using “Expect: 100-continue”
 ## Customer Experience
 
 ### Documentation
-Writing API documentation can be a real bore, but hand-written documentation is usually the best documentation. Be sure to include some runnable code or curl command-lines to help get people up-to-speed as quickly as possible. You can also look at documentation tools like apiary.io, Mashery I/O Docs, or Swagger.
+Writing API documentation can be a real bore, but hand-written documentation is usually the best documentation. Be sure to include some runnable code or curl command-lines to help get people up-to-speed as quickly as possible. 
+You can also look at documentation tools like [apiary.io](http://apiary.io/), [Mashery I/O Docs](http://www.mashery.com/product/io-docs), [RAML](http://raml.org/) or [Swagger](http://swagger.io/).
 
 ### Design with a Customer!
 Don’t design your API in a vacuum; work with a customer and their use-cases. This will help you “Design for Intent” (#23).
