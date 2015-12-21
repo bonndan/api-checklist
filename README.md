@@ -103,8 +103,10 @@ Be sure you design how you want your API to perform error logging, rather than j
 
 ## Content
 
-### Content Types
+### Content Structure and Envelopes
 Entire books could be written about content types; all I’m going to point out is that they’re important. Personally, I like reusing content types that other people have developed, like Atom, [Collection+JSON](http://amundsen.com/media-types/collection/), [JSON HAL](http://tools.ietf.org/html/draft-kelly-json-hal-05), or XHTML. Defining your own content type is more work than you expect.
+
+You might consider to introduce an [envelope](http://stackoverflow.com/questions/9989135/when-in-my-rest-api-should-i-use-an-envelope-if-i-use-it-in-one-place-should-i) for responses, i.e. an additional wrapper around the entiies returned. This can be helpful for clients which cannot process response headers and need additional "meta" information (e.g. total result counts, validation messages).
 
 ### HATEOAS
 Hypermedia as the Engine of Application State is a REST constraint that, described simply, means that your content should tell the client what it can do next by via links and forms. If you build your API with this constraint it mind, it will be much more resilient to change… if your clients obey your design approach too.
@@ -154,3 +156,8 @@ Make sure you provide your API users with a way to give you feedback on the API.
 
 ### Automated Testing
 Your API should be the easiest thing you’ve ever had to build automated tests for. It’s made for automation, after all. Take advantage of it!
+
+
+## Other resources
+
+* http://www.startupcto.com/backend-tech/building-an-api-best-practices
