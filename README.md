@@ -1,5 +1,5 @@
 # api-checklist
-Checklist for HTTP REST API design. Based on [The Api Checklist Blog Post](https://mathieu.fenniak.net/the-api-checklist) by Mathieu Fenniak.
+Checklist for HTTP REST API design. Based on [The Api Checklist Blog Post](https://mathieu.fenniak.net/the-api-checklist) by Mathieu Fenniak. Make sure to have a look a [The REST cookbook](http://restcookbook.com/).
 
 ## HTTP
 
@@ -75,8 +75,9 @@ There’s one place you don’t want your API to be storing state, and that’s 
 ### Content Negotiation
 If you want to support multiple representations of your resources, you can use content negotiation (eg. Accept headers), or differing URLs for different representations (eg. …?format=json), or you can combine both and have your content negotiation resources redirect to specific formats.
 
-### URI Templates
-URI Templates are a well-defined mechanism for providing URL composition capabilities to your clients, or for documenting your URL access patterns to your end-user.
+### URIs
+[URI Templates](http://tools.ietf.org/html/rfc6570) are a well-defined mechanism for providing URL composition capabilities to your clients, or for documenting your URL access patterns to your end-user.
+For naming consider the following: _verbs are bad, nouns are good, plurals are better_. That is prefer "/dogs" over "/getDogs", because the latter is RPC style. See [Swamp of Pox](http://restcookbook.com/Miscellaneous/richardsonmaturitymodel/)
 
 ### Design for Intent
 Don’t just expose your internal business objects through your API. Design your API to have semantic meaning and to match the use-cases that your users will have. 
@@ -161,3 +162,5 @@ Your API should be the easiest thing you’ve ever had to build automated tests 
 ## Other resources
 
 * http://www.startupcto.com/backend-tech/building-an-api-best-practices
+* http://de.slideshare.net/apigee/rest-design-webinar
+* http://restcookbook.com/
